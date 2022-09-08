@@ -1,1 +1,41 @@
-# 第一章
+## 目录
+
+*   [应用程序使用memory的途径](#应用程序使用memory的途径)
+
+    *   [应用程序分配内存的途径](#应用程序分配内存的途径)
+
+*   [4个基本工具](#4个基本工具)
+
+# 内存管理概述
+
+# 应用程序使用memory的途径
+
+C++应用程序使用memory的三种途径：
+
+1.  直接使用malloc/free函数申请和释放内存
+
+2.  使用C++库中的分配器allocator或者new/delete关键字管理内存，但该方法底层还是通过途径1实现的
+
+3.  使用最底层的操作系统管理内存的api（太低阶了，不谈）
+
+故，可看出malloc/free是多么重要！！！
+
+![](image/image_fhV8EQ0TBG.png)
+
+## 应用程序分配内存的途径
+
+应用程序调用new操作符，编译器使用operator new函数分配内存并使用placement new调用构造函数初始化参数，operator new底层是通过malloc实现的
+
+程序员有两个机会可以改变内存分配机制：
+
+1.  如标号①，重载类的成员函数operator new/operator delete
+
+2.  如标号②，重载全局函数operator new/operator delete
+
+这两个函数底层都是通过调用malloc/free实现的，故我们也可以直接在代码里边模仿new expression，如图左下部分：
+
+![](image/image_GGdE1sBRkW.png)
+
+# 4个基本工具
+
+![](image/image_wQpOAQCuwb.png)
